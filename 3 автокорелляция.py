@@ -1,6 +1,3 @@
-import math
-
-# чтение данных
 def read_numbers(path):
     with open(path, "r", encoding="utf-8") as f:
         return [float(line.strip()) for line in f if line.strip()]
@@ -18,12 +15,10 @@ def autocorr(series, tau):
 max_lag = 10
 acf = [autocorr(data, tau) for tau in range(1, max_lag + 1)]
 
-# вывод в консоль
 print("Сдвиг\tКоэф. автокорреляции")
 for tau, r in enumerate(acf, start=1):
     print(f"{tau}\t{r:+.6f}")
 
-# таблица для typst
 def fmt(x):
     return f"{x:+.4f}"
 

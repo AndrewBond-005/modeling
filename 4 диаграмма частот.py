@@ -1,7 +1,6 @@
 import math
 import matplotlib.pyplot as plt
 
-# чтение данных
 def read_numbers(path):
     with open(path, "r", encoding="utf-8") as f:
         return [float(line.strip()) for line in f if line.strip()]
@@ -9,35 +8,26 @@ def read_numbers(path):
 data = read_numbers("data.txt")
 n = len(data)
 
-# разбивка на интервалы
-# стёрджес: k = 1 + log2(n), округляем
-k = int(math.ceil(1 + math.log2(n)))
-# в отчёте 18 интервалов, задаю явно
-k = 18
 
+k = 18
 x_min = min(data)
 x_max = max(data)
 step = (x_max - x_min) / k
-
-# границы
 edges = [x_min + i * step for i in range(k + 1)]
 
-# частоты
 freq = [0] * k
 for x in data:
     idx = int((x - x_min) / step)
-    if idx == k:      # крайнее значение в последний интервал
+    if idx == k:      # крайнее значение в последний
         idx = k - 1
     freq[idx] += 1
 
-# вывод в консоль
 print("№\tЛевая\tПравая\tЧастота")
 for i in range(k):
     print(f"{i+1}\t{edges[i]:.4f}\t{edges[i+1]:.4f}\t{freq[i]}")
 
 print(f"\nСумма частот: {sum(freq)} (должно быть {n})")
 
-# гистограмма
 fig, ax = plt.subplots(figsize=(14, 6))
 
 centers = [(edges[i] + edges[i+1]) / 2 for i in range(k)]
@@ -50,7 +40,6 @@ ax.set_xlabel("Интервалы значений", fontsize=12)
 ax.set_ylabel("Частота", fontsize=12)
 ax.grid(True, axis="y", linestyle="--", linewidth=0.5, alpha=0.7)
 
-# подписи по оси x
 ax.set_xticks(edges)
 ax.set_xticklabels([f"{e:.2f}" for e in edges], rotation=45, ha="right", fontsize=8)
 
@@ -60,7 +49,6 @@ plt.show()
 
 print("\nСохранено: plot3_histogram.png")
 
-# таблица для typst
 def fmt(x):
     return f"{x:.3f}"
 

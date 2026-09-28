@@ -1,19 +1,17 @@
 import math
 import matplotlib.pyplot as plt
 
-# чтение данных
 def read_numbers(path):
     with open(path, "r", encoding="utf-8") as f:
         return [float(line.strip()) for line in f if line.strip()]
 
-data = read_numbers("data.txt")          # заданная чп
-gen  = read_numbers("generated.txt")     # сгенерированная чп
+data = read_numbers("data.txt")
+gen  = read_numbers("generated.txt")
 
 n = min(len(data), len(gen))
 data = data[:n]
 gen  = gen[:n]
 
-# график значений
 fig, ax = plt.subplots(figsize=(12, 5))
 
 ax.plot(range(1, n + 1), data, linewidth=0.7, color="#1f77b4", label="заданная чп")
@@ -30,8 +28,7 @@ plt.savefig("plot_compare_sequence.png", dpi=200)
 plt.show()
 print("Сохранено: plot_compare_sequence.png")
 
-# гистограмма
-# общий диапазон и одинаковые интервалы для обеих чп
+
 x_min = min(min(data), min(gen))
 x_max = max(max(data), max(gen))
 k = 18
@@ -77,7 +74,6 @@ plt.savefig("plot_compare_histogram.png", dpi=200)
 plt.show()
 print("Сохранено: plot_compare_histogram.png")
 
-# таблица для typst
 def fmt(x):
     return f"{x:.4f}"
 

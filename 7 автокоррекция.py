@@ -1,15 +1,14 @@
-import math
 import matplotlib.pyplot as plt
 
-# чтение сгенерированной чп
+
 def read_numbers(path):
     with open(path, "r", encoding="utf-8") as f:
         return [float(line.strip()) for line in f if line.strip()]
 
+
 gen = read_numbers("generated.txt")
 n = len(gen)
 
-# автокорреляция
 def autocorr(series, tau):
     n = len(series)
     mean = sum(series) / n
@@ -20,12 +19,10 @@ def autocorr(series, tau):
 max_lag = 10
 acf = [autocorr(gen, tau) for tau in range(1, max_lag + 1)]
 
-# вывод в консоль
 print("Сдвиг\tКоэф. автокорреляции")
 for tau, r in enumerate(acf, start=1):
     print(f"{tau}\t{r:+.6f}")
 
-# график
 fig, ax = plt.subplots(figsize=(10, 5))
 
 ax.plot(range(1, max_lag + 1), acf, marker="o", linewidth=1.5, color="#1f77b4")
@@ -43,7 +40,7 @@ plt.show()
 
 print("\nсохранено: plot_autocorr_gen.png")
 
-# таблица для typst
+
 def fmt(x):
     return f"{x:+.4f}"
 

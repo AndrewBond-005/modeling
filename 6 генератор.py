@@ -1,34 +1,27 @@
 import math
 import random
 
-# параметры (из этапа 5)
-q       = 0.2
-lambda1 = 0.026392   # медленная компонента
-lambda2 = 1.806937   # быстрая компонента
-
+q = 0.2
+lambda1 = 0.026392
+lambda2 = 1.806937
 t1 = 1.0 / lambda1
 t2 = 1.0 / lambda2
-
-n    = 300
-seed = 42            # для воспроизводимости; убери если нужна другая последовательность
-
-# генерация
+n = 300
+seed = 42
 random.seed(seed)
 
 generated = []
 for _ in range(n):
     r1 = random.random()
     r2 = random.random()
-    t  = t1 if r1 < q else t2
-    x  = t * (-math.log(1.0 - r2))
+    t = t1 if r1 < q else t2
+    x = t * (-math.log(1.0 - r2))
     generated.append(x)
 
-# сохранение
 with open("generated.txt", "w", encoding="utf-8") as f:
     for x in generated:
         f.write(f"{x:.6f}\n")
 
-# отчет
 print(f"Сгенерировано {n} значений")
 print(f"параметры:")
 print(f"  q  = {q}")

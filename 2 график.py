@@ -1,13 +1,11 @@
 import matplotlib.pyplot as plt
 
-# чтение данных
 with open("data.txt", "r", encoding="utf-8") as f:
     data = [float(line.strip()) for line in f if line.strip()]
 
 n = len(data)
 x = list(range(1, n + 1))
 
-# график
 fig, ax = plt.subplots(figsize=(12, 5))
 
 ax.plot(x, data, linewidth=0.7, color="#1f77b4")
